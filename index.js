@@ -1,28 +1,13 @@
 const express = require('express');
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const keys = require('./config/keys');
+//Trick - we just need a function, it's not necessary to have more variable 
+require('./services/passport');
+
 const app = express();
+//Trick - it's function execute automatically, (app) it's params, you can take a look in his file for understand
+require('./routes/authRoutes')(app);
 
-passport.use(new GoogleStrategy({
-    clientID: keys.googleClientID,
-    clientSecret: keys.googleClientSecret,
-    callbackURL: '/auth/google/callback'
-}, (accessToken)=>{ console.log(accessToken); }));
 
-app.get(
-    '/auth/google',
-    passport.authenticate('google', {
-        scope: ['profile', 'email']
-    }) 
-);
 
-app.get(
-    '/auth/google/callback',
-    (req, res)=>{ 
-        passport.authenticate('google');
-        res.send({'hi': req.body}) }
-);
 
 // env Production for Heroku 
 const PORT = process.env.PORT || 5003;
