@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "Go beyond the basics of React and Redux!  This course will teach you to combine the ultra-popular React, Redux, Express, and MongoDB technologies to build a fullstack web application.   Advanced Deployment? You will learn it.  Billing/Payments? Included.  Handling Email? Of course!",
   "main": "index.js",
-  "engines":{
+  "engines": {
     "node": "8.9.1",
     "npm": "5.5.1"
   },
   "scripts": {
-    "start" : "node index.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -21,6 +21,9 @@
   },
   "homepage": "https://github.com/YoLoADR/NodeWhithReactProject#readme",
   "dependencies": {
-    "express": "^4.16.2"
+    "express": "^4.16.2",
+    "nodemon": "^1.12.1",
+    "passport": "^0.4.0",
+    "passport-google-oauth20": "^1.0.0"
   }
 }
