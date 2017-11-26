@@ -8,10 +8,11 @@ module.exports = (app) => {
         }) 
     );
     
-    app.get(
-        '/auth/google/callback',
-        (req, res)=>{ 
-            passport.authenticate('google');
-            res.send({'hi': req.body}) }
+    app.get('/auth/google/callback',
+        passport.authenticate('google'),
+        function(req, res) {
+            // Successful authentication, redirect home.
+            res.redirect('/');
+        }
     );
 };
