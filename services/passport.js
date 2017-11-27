@@ -10,10 +10,18 @@ passport.use(new GoogleStrategy({
     clientSecret: keys.googleClientSecret,
     callbackURL: '/auth/google/callback'
 }, (accessToken, refreshToken, profile, done) =>{
-     console.log("accessToken : ", accessToken); 
-     console.log("refreshToken : ", refreshToken); 
-     console.log("profile : ", profile); 
-     let user = new User({googleId: profile.id, displayName: profile.displayName}).save(()=>{
-        console.log(user, "save from google");
+     
+      User.findOne({googleId: profile.id})
+      .then((existingUser)=>{
+        if(existingUser){
+          //User already exist
+          done(null, existingUser);
+        }else{
+          // User doesn't exist, we can creat this one
+          let user = new User({googleId: profile.id, displayName: profile.displayName}).save((data)=>{
+            // Informed to passport method that it is finish
+            done(null, data);
+          });
+        }
       });
 }));
